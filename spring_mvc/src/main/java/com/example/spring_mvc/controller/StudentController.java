@@ -54,9 +54,4 @@ public class StudentController {
         studentService.delete(id);
         return "redirect:/students";
     }
-
-//    @DeleteMapping("/{id}")
-//    public void deleteStudent(@PathVariable Long id) {
-//        studentService.delete(id);
-//    }
 }

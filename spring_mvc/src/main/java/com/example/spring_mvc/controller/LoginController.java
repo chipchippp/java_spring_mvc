@@ -9,4 +9,9 @@ public class LoginController {
     public String loginPage() {
         return "account/login";
     }
+    @GetMapping("/showPage403")
+    public String showPage403() {
+        return "error/403";
+    }
+
 }

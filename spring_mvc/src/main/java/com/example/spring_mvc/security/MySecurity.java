@@ -31,17 +31,25 @@ public class MySecurity {
         http
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
+                                .requestMatchers("/students/**").hasAnyRole("ADMIN", "MANAGER")
+                                .requestMatchers("/user/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/user/manager/**").hasAnyRole("MANAGER", "USER")
                                 .anyRequest().authenticated()
                 )
-                .formLogin(
-                        formLogin -> formLogin
+                .formLogin(formLogin ->
+                        formLogin
                                 .loginPage("/loginPage")
                                 .loginProcessingUrl("/authenticateTheUser")
                                 .permitAll()
-                ).logout(
-                        logout -> logout
+                )
+                .logout(logout ->
+                        logout
                                 .logoutUrl("/logout")
-                                .permitAll());
+                                .permitAll()
+                )
+                .exceptionHandling(exceptionHandling ->
+                        exceptionHandling.accessDeniedPage("/showPage403")
+                );
         return http.build();
     }
 }
